@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fortnight 8 · 2026 — Talented Capacity Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800;9..144,900&family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0a0a; --paper:#f4f1ea; --paper2:#ece7dc; --line:#1a1a1a;
+  --accent:#ff4d2e; --over:#ff4d2e; --healthy:#0a0a0a; --light:#c9a227; --none:#9a948a;
+  --mut:#6f6a60;
+  --sans:'Archivo',sans-serif; --narrow:'Archivo Narrow',sans-serif;
+  --serif:'Fraunces',serif; --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ---------- MASTHEAD ---------- */
+header{border-bottom:3px solid var(--line);padding:34px 0 22px;position:relative}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--mut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.kicker b{color:var(--ink)}
+.dot{display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-right:7px;vertical-align:middle}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(48px,9vw,118px);line-height:.86;
+  letter-spacing:-.03em;margin:14px 0 4px;font-optical-sizing:auto}
+h1 em{font-style:italic;font-weight:400}
+.sub{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-top:10px}
+.tag{font-family:var(--narrow);font-size:18px;text-transform:uppercase;letter-spacing:.06em;max-width:540px;color:#2a2a2a}
+.tag span{color:var(--accent);font-weight:700}
+.period{font-family:var(--mono);font-size:13px;text-align:right;color:var(--mut);white-space:nowrap}
+.period b{color:var(--ink);font-size:15px}
+
+/* ---------- PURPOSE STRIP ---------- */
+.purpose{background:var(--ink);color:var(--paper);margin-top:0;padding:18px 0}
+.purpose .wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.purpose p{font-family:var(--serif);font-style:italic;font-size:clamp(15px,2vw,21px);line-height:1.35;flex:1;min-width:260px}
+.purpose p b{font-style:normal;font-weight:600;color:var(--accent)}
+
+/* ---------- KPI ROW ---------- */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:3px solid var(--line)}
+.kpi{padding:26px 16px 22px;border-right:1px solid #cfc9bd;position:relative}
+.kpi:last-child{border-right:none}
+.kpi .n{font-family:var(--serif);font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:.95;letter-spacing:-.02em}
+.kpi .l{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--mut);margin-top:9px}
+.kpi.hot .n{color:var(--accent)}
+.kpi .s{font-size:11px;color:var(--mut);margin-top:3px;font-family:var(--sans)}
+@media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-bottom:1px solid #cfc9bd}}
+
+section{padding:52px 0;border-bottom:1px solid #d8d2c6}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-h h2{font-family:var(--serif);font-weight:800;font-size:clamp(26px,4vw,42px);letter-spacing:-.02em;line-height:1}
+.sec-h .idx{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;padding-top:6px}
+.sec-desc{font-family:var(--narrow);font-size:16px;color:var(--mut);max-width:620px;margin-bottom:30px;text-transform:uppercase;letter-spacing:.03em}
+
+/* ---------- DISTRIBUTION ---------- */
+.dist{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center}
+@media(max-width:820px){.dist{grid-template-columns:1fr}}
+.bands{display:flex;flex-direction:column;gap:2px}
+.bandrow{display:grid;grid-template-columns:120px 1fr 54px;align-items:center;gap:14px}
+.bandrow .bl{font-family:var(--narrow);font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.04em}
+.bar{height:30px;background:var(--paper2);position:relative;overflow:hidden;border:1.5px solid var(--line)}
+.bar i{display:block;height:100%;width:0;transition:width 1.1s cubic-bezier(.16,1,.3,1)}
+.bandrow .bn{font-family:var(--mono);font-weight:700;font-size:16px;text-align:right}
+.legend-note{font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:18px;line-height:1.7}
+.legend-note b{color:var(--ink)}
+.swatch{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:middle;border:1px solid var(--line)}
+.donut-wrap{text-align:center}
+.donut-cap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--mut);margin-top:14px}
+.donut-cap b{display:block;font-family:var(--serif);font-size:34px;color:var(--ink);letter-spacing:-.02em;margin-top:4px}
+
+/* ---------- HISTOGRAM ---------- */
+.histo{display:flex;align-items:flex-end;gap:6px;height:220px;margin-top:10px;padding-top:20px;border-bottom:2px solid var(--line)}
+.hbar{flex:1;background:var(--ink);position:relative;transition:height 1s cubic-bezier(.16,1,.3,1);min-height:2px}
+.hbar.over{background:var(--accent)}.hbar.light{background:var(--light)}.hbar.none{background:var(--none)}
+.hbar .hv{position:absolute;top:-19px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:11px;font-weight:700}
+.haxis{display:flex;gap:6px;margin-top:7px}
+.haxis div{flex:1;text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--mut)}
+
+/* ---------- ATTENTION CARDS ---------- */
+.att{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2.5px solid var(--line)}
+@media(max-width:820px){.att{grid-template-columns:1fr}}
+.att-col{padding:24px 22px;border-right:2.5px solid var(--line)}
+.att-col:last-child{border-right:none}
+@media(max-width:820px){.att-col{border-right:none;border-bottom:2.5px solid var(--line)}.att-col:last-child{border-bottom:none}}
+.att-col h3{font-family:var(--narrow);text-transform:uppercase;font-size:15px;letter-spacing:.05em;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.att-col .cnt{font-family:var(--serif);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.02em}
+.att-col .hint{font-family:var(--mono);font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin:6px 0 16px}
+.att-col.red .cnt{color:var(--accent)}
+.chip{display:inline-flex;align-items:center;gap:7px;background:var(--paper2);border:1.5px solid var(--line);
+  padding:7px 11px;margin:0 6px 8px 0;font-size:13px;font-weight:600}
+.chip b{font-family:var(--mono);font-size:12px}
+.chip.red{border-color:var(--accent);box-shadow:2px 2px 0 var(--accent)}
+.chip.red b{color:var(--accent)}
+
+/* ---------- ROSTER ---------- */
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+.search{flex:1;min-width:200px;font-family:var(--mono);font-size:14px;padding:11px 14px;
+  border:2px solid var(--line);background:var(--paper);outline:none}
+.search:focus{box-shadow:3px 3px 0 var(--accent)}
+.fbtn{font-family:var(--narrow);text-transform:uppercase;font-weight:700;font-size:13px;letter-spacing:.05em;
+  padding:10px 15px;border:2px solid var(--line);background:var(--paper);cursor:pointer;transition:.12s}
+.fbtn:hover{background:var(--ink);color:var(--paper)}
+.fbtn.on{background:var(--ink);color:var(--paper)}
+.fbtn.on.red{background:var(--accent);border-color:var(--accent)}
+
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl thead th{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);
+  text-align:left;padding:10px 12px;border-bottom:2.5px solid var(--line);cursor:pointer;user-select:none;white-space:nowrap}
+.tbl thead th:hover{color:var(--accent)}
+.tbl thead th.num{text-align:right}
+.tbl tbody tr{border-bottom:1px solid #d8d2c6;transition:background .1s}
+.tbl tbody tr:hover{background:var(--paper2)}
+.tbl td{padding:11px 12px;vertical-align:middle}
+.tbl td.num{text-align:right;font-family:var(--mono);font-weight:500}
+.nm{font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px}
+.nm .pin{width:8px;height:8px;flex:none;border-radius:50%}
+.util{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.minib{width:90px;height:9px;background:var(--paper2);border:1px solid var(--line);position:relative;overflow:hidden}
+.minib i{display:block;height:100%}
+.putil{font-family:var(--mono);font-weight:700;font-size:14px;min-width:46px;text-align:right}
+.badge{font-family:var(--mono);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  padding:3px 7px;border:1.5px solid;white-space:nowrap}
+.cmt{font-size:12.5px;color:var(--mut);font-style:italic;font-family:var(--serif);max-width:320px}
+.flagmark{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--light);background:#fff8e1;
+  border:1.5px solid var(--light);padding:3px 7px;text-transform:uppercase;letter-spacing:.05em}
+.expand{cursor:pointer}
+.drawer td{background:var(--paper2);padding:0!important}
+.drawer-inner{padding:16px 20px;display:none}
+.drawer-inner.show{display:block}
+.pj{display:inline-flex;align-items:center;gap:7px;background:var(--paper);border:1.5px solid var(--line);
+  padding:5px 10px;margin:0 6px 7px 0;font-size:12.5px}
+.pj b{font-family:var(--mono);font-size:11.5px;color:var(--accent)}
+.dlabel{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut);margin-bottom:9px}
+
+/* ---------- PROJECTS ---------- */
+.plist{display:flex;flex-direction:column;gap:1px}
+.prow{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #d8d2c6}
+.prow .rank{font-family:var(--mono);font-size:12px;color:var(--mut);font-weight:700}
+.prow .pn{font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pbar{flex:1;min-width:60px;height:11px;background:var(--paper2);border:1px solid var(--line);position:relative;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--ink)}
+.pmeta{font-family:var(--mono);font-size:12px;color:var(--mut);white-space:nowrap}
+.pmeta b{color:var(--ink);font-size:14px}
+.ppl{font-family:var(--mono);font-size:11px;color:var(--mut)}
+.morep{font-family:var(--narrow);text-transform:uppercase;font-weight:700;font-size:13px;letter-spacing:.05em;
+  padding:11px 18px;border:2px solid var(--line);background:var(--paper);cursor:pointer;margin-top:18px}
+.morep:hover{background:var(--ink);color:var(--paper)}
+
+footer{padding:40px 0 60px;text-align:center}
+footer .fl{font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.1em;line-height:2}
+footer .big{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink);margin-bottom:14px}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+::selection{background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">
+      <span><span class="dot"></span><b>TALENTED</b> · FORTNIGHT REPORT</span>
+      <span>CAPACITY &amp; WELLBEING · CONFIDENTIAL — LEADERSHIP</span>
+    </div>
+    <h1>Fort<em>night</em> 8</h1>
+    <div class="sub">
+      <div class="tag">Two work-weeks, eight-and-a-half hours a day. <span>People, not billing.</span> Where we're loaded, where there's room, and who to check on.</div>
+      <div class="period">PERIOD<br><b>13–26 APR 2026</b><br>85h = full fortnight</div>
+    </div>
+  </div>
+</header>
+
+<div class="purpose"><div class="wrap">
+  <p>Great work has great people at the heart of it — <b>fired-up, well-rested, fairly-paid people.</b> This report exists so we can move work around them, not the other way round.</p>
+</div></div>
+
+<div class="kpis wrap" style="max-width:1180px;margin:0 auto;padding-left:0;padding-right:0">
+  <div class="kpi"><div class="n" id="k-head">70</div><div class="l">People tracked</div><div class="s" id="k-active">— active this fortnight</div></div>
+  <div class="kpi"><div class="n" id="k-proj">49</div><div class="l">Live projects</div><div class="s">across the agency</div></div>
+  <div class="kpi"><div class="n" id="k-util">85%</div><div class="l">Avg utilisation</div><div class="s">of 85h capacity</div></div>
+  <div class="kpi hot"><div class="n" id="k-over">4</div><div class="l">Over 110%</div><div class="s">watch for burnout</div></div>
+  <div class="kpi"><div class="n" id="k-room">919h</div><div class="l">Capacity free</div><div class="s">room to absorb work</div></div>
+  <div class="kpi"><div class="n" id="k-untag">6.5%</div><div class="l">Untagged time</div><div class="s">data-quality gap</div></div>
+</div>
+
+<!-- DISTRIBUTION -->
+<section class="reveal"><div class="wrap">
+  <div class="sec-h"><span class="idx">01</span><h2>How the load is spread</h2></div>
+  <p class="sec-desc">Is the agency carried evenly, or by the same few names? Each person measured against a full 85-hour fortnight.</p>
+  <div class="dist">
+    <div>
+      <div class="bands" id="bands"></div>
+      <div class="legend-note">
+        <b>Bands.</b> &nbsp;<span class="swatch" style="background:var(--over)"></span>Over 110% &nbsp;
+        <span class="swatch" style="background:var(--healthy)"></span>Healthy 70–110% &nbsp;
+        <span class="swatch" style="background:var(--light)"></span>Light &lt;70% &nbsp;
+        <span class="swatch" style="background:var(--none)"></span>No load logged<br>
+        Healthy band is wide on purpose — a single big fortnight isn't a problem. Sustained overload is.
+      </div>
+    </div>
+    <div class="donut-wrap">
+      <svg viewBox="0 0 200 200" width="210" height="210" id="donut"></svg>
+      <div class="donut-cap">Carried by the top quartile<b id="topq">—</b>of total hours from 16 people</div>
+    </div>
+  </div>
+
+  <div style="margin-top:46px">
+    <div class="dlabel">Utilisation spread — every active person bucketed by % of capacity</div>
+    <div class="histo" id="histo"></div>
+    <div class="haxis" id="haxis"></div>
+  </div>
+</div></section>
+
+<!-- ATTENTION -->
+<section class="reveal"><div class="wrap">
+  <div class="sec-h"><span class="idx">02</span><h2>Where help might be needed</h2></div>
+  <p class="sec-desc">Three signals leadership should act on this fortnight — pull work off the loaded, hand work to those with room, de-risk single points of failure.</p>
+  <div class="att">
+    <div class="att-col red">
+      <h3>🔥 Overloaded</h3>
+      <div class="cnt" id="a-over">4</div>
+      <div class="hint">Above 110% — consider redistributing</div>
+      <div id="overchips"></div>
+    </div>
+    <div class="att-col">
+      <h3>🌱 Room to take on more</h3>
+      <div class="cnt" id="a-light">6</div>
+      <div class="hint">Under 70%, no leave / exit on record</div>
+      <div id="lightchips"></div>
+    </div>
+    <div class="att-col">
+      <h3>⚠️ Single-project risk</h3>
+      <div class="cnt" id="a-spd">2</div>
+      <div class="hint">All hours on one client — fragile</div>
+      <div id="spdchips"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ROSTER -->
+<section class="reveal"><div class="wrap">
+  <div class="sec-h"><span class="idx">03</span><h2>The full roster</h2></div>
+  <p class="sec-desc">Every person, sortable. Click a row to see their project mix. Notes explain anyone running light by design.</p>
+  <div class="controls">
+    <input class="search" id="search" placeholder="search a name…"/>
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn red" data-f="over">Overloaded</button>
+    <button class="fbtn" data-f="healthy">Healthy</button>
+    <button class="fbtn" data-f="light">Light load</button>
+    <button class="fbtn" data-f="noted">Has note</button>
+  </div>
+  <table class="tbl">
+    <thead><tr>
+      <th data-s="name">Person</th>
+      <th data-s="official_pct" class="num">Utilisation</th>
+      <th data-s="official_hours" class="num">Hours</th>
+      <th data-s="n_projects" class="num">Projects</th>
+      <th data-s="band">Status</th>
+      <th>Note</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div></section>
+
+<!-- PROJECTS -->
+<section class="reveal"><div class="wrap">
+  <div class="sec-h"><span class="idx">04</span><h2>What's eating the hours</h2></div>
+  <p class="sec-desc">Projects ranked by tagged hours this fortnight, with headcount. The heaviest clients are where capacity risk concentrates.</p>
+  <div class="plist" id="plist"></div>
+  <button class="morep" id="morep">Show all 49 projects ↓</button>
+</div></section>
+
+<!-- DATA QUALITY -->
+<section class="reveal"><div class="wrap">
+  <div class="sec-h"><span class="idx">05</span><h2>A note on data quality</h2></div>
+  <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:center" id="dqgrid">
+    <div>
+      <div style="font-family:var(--serif);font-weight:800;font-size:clamp(40px,7vw,82px);line-height:.9;letter-spacing:-.02em">
+        <span id="dq-tagged">4,321h</span>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);margin-top:8px">tagged to a project</div>
+      <div style="height:14px;background:var(--paper2);border:2px solid var(--line);margin:22px 0 6px;position:relative;overflow:hidden">
+        <i id="dqbar" style="display:block;height:100%;background:var(--ink);width:0;transition:width 1.1s ease"></i>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut)">
+        <span><b style="color:var(--ink)" id="dq-pct">93.5%</b> tagged</span>
+        <span><b style="color:var(--accent)" id="dq-untag">302.6h</b> untagged</span>
+      </div>
+    </div>
+    <div style="font-family:var(--narrow);font-size:17px;line-height:1.55;text-transform:none">
+      <p style="margin-bottom:14px">Across the fortnight, <b id="dq-untag2">302.6 hours</b> of logged work — about <b>6.5%</b> — sits in people's totals but isn't attached to any of the 49 project columns.</p>
+      <p style="color:var(--mut)">It's real work and it counts toward how loaded someone is. But because it isn't tagged, we can't see <i>which client</i> it served. Not a blame flag — a reminder that tightening time-logging makes every future Fortnight call sharper. The utilisation numbers above use each person's official total, so the wellbeing read stays accurate regardless.</p>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="big">"We obsess over our talent."</div>
+  <div class="fl">FORTNIGHT 8 · 2026 &nbsp;·&nbsp; 13–26 APRIL &nbsp;·&nbsp; GENERATED FOR TALENTED LEADERSHIP<br>
+  Source of truth: official fortnight totals · 85h = 100% capacity · figures verified against source sheet</div>
+</div></footer>
+
+<script>
+const D = {"summary": {"fortnight": "Fortnight 8, 2026", "period": "13 – 26 April 2026", "capacity": 85.0, "headcount": 70, "active": 64, "n_projects": 49, "grand_tagged": 4321.4, "grand_official": 4624.0, "grand_untagged": 302.6, "untag_pct": 6.5, "avg_util": 85.0, "n_over": 4, "n_healthy": 49, "n_light": 11, "n_none": 6, "n_light_flag": 6, "n_spd": 2, "capacity_left": 918.8}, "rows": [{"name": "Aabhaas Shailesh Shreshtha", "short": "Aabhaas Shreshtha", "tagged_hours": 89.25, "official_pct": 105.0, "official_hours": 89.25, "tagged_pct": 105.0, "untagged_hours": 0.0, "n_projects": 8, "projects": {"Bhartiya Jalpan": 17.0, "Fortinet": 4.25, "Hinge": 34.0, "Leeford": 12.75, "Pantaloons": 4.25, "Red Rock": 8.5, "T6D Internal Projects": 4.25, "The Hindu": 4.25}, "top_project": "Hinge", "top_share": 38, "comment": null, "band": "healthy"}, {"name": "Aakash Devrani", "short": "Aakash Devrani", "tagged_hours": 59.5, "official_pct": 70.0, "official_hours": 59.5, "tagged_pct": 70.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Red Rock": 29.75, "The Hindu": 8.5, "Zee5": 21.25}, "top_project": "Red Rock", "top_share": 50, "comment": null, "band": "healthy"}, {"name": "Aakash Nimish Desai", "short": "Aakash Desai", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Bhartiya Jalpan": 4.25, "Leeford": 42.5, "Rupeezy": 21.25}, "top_project": "Leeford", "top_share": 62, "comment": null, "band": "healthy"}, {"name": "Aarti Mukhedkar", "short": "Aarti Mukhedkar", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Burman Sports": 17.0, "Razorpay": 42.5, "The Hindu": 25.5}, "top_project": "Razorpay", "top_share": 50, "comment": null, "band": "healthy"}, {"name": "Aarushi Periwal", "short": "Aarushi Periwal", "tagged_hours": 102.0, "official_pct": 120.0, "official_hours": 102.0, "tagged_pct": 120.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Fortinet": 8.5, "Hinge": 25.5, "Razorpay": 42.5, "Red Rock": 25.5}, "top_project": "Razorpay", "top_share": 42, "comment": null, "band": "over"}, {"name": "Aarushi Raghwa", "short": "Aarushi Raghwa", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 5, "projects": {"Google Gemini": 12.75, "Hinge": 34.0, "Pantaloons": 12.75, "Schweppes": 8.5, "The Hindu": 17.0}, "top_project": "Hinge", "top_share": 40, "comment": null, "band": "healthy"}, {"name": "Abhignaa Jagirdar", "short": "Abhignaa Jagirdar", "tagged_hours": 76.5, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 90.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Flipkart": 25.5, "Hinge": 25.5, "T6D Internal Projects": 8.5, "Vaseline": 17.0}, "top_project": "Flipkart", "top_share": 33, "comment": null, "band": "healthy"}, {"name": "Abhishek", "short": "Abhishek", "tagged_hours": 63.75, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 75.0, "untagged_hours": 12.75, "n_projects": 3, "projects": {"Duolingo": 25.5, "Myntra": 12.75, "Uber": 25.5}, "top_project": "Duolingo", "top_share": 40, "comment": null, "band": "healthy"}, {"name": "Aditi Gujaran", "short": "Aditi Gujaran", "tagged_hours": 89.25, "official_pct": 105.0, "official_hours": 89.25, "tagged_pct": 105.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Bhartiya Jalpan": 46.75, "Case studies": 4.25, "Philips": 34.0, "Rimzim": 4.25}, "top_project": "Bhartiya Jalpan", "top_share": 52, "comment": null, "band": "healthy"}, {"name": "Akarshita Chandra", "short": "Akarshita Chandra", "tagged_hours": 80.75, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 95.0, "untagged_hours": 0.0, "n_projects": 6, "projects": {"Good Day": 17.0, "Gpay": 12.75, "Schweppes": 17.0, "The Hindu": 12.75, "Uber": 8.5, "Ugaoo": 12.75}, "top_project": "Good Day", "top_share": 21, "comment": null, "band": "healthy"}, {"name": "Akshat Chaturvedi", "short": "Akshat Chaturvedi", "tagged_hours": 76.5, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 90.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Bhartiya Jalpan": 4.25, "Nestasia": 51.0, "Rupeezy": 21.25}, "top_project": "Nestasia", "top_share": 67, "comment": null, "band": "healthy"}, {"name": "Amisha Thakre", "short": "Amisha Thakre", "tagged_hours": 51.0, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 60.0, "untagged_hours": 25.5, "n_projects": 4, "projects": {"Bhartiya Jalpan": 4.25, "Britannia Corp": 8.5, "Case studies": 29.75, "Myntra": 8.5}, "top_project": "Case studies", "top_share": 58, "comment": null, "band": "healthy"}, {"name": "Amith Nair", "short": "Amith Nair", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 5, "projects": {"Burman Sports": 55.25, "Case studies": 4.25, "Ensure Master Brand": 8.5, "Nestasia": 12.75, "Schweppes": 4.25}, "top_project": "Burman Sports", "top_share": 65, "comment": null, "band": "healthy"}, {"name": "Angelina Shaji Kurian", "short": "Angelina Kurian", "tagged_hours": 89.25, "official_pct": 105.0, "official_hours": 89.25, "tagged_pct": 105.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Ensure": 34.0, "Ensure Master Brand": 34.0, "Good Day": 12.75, "HUL": 8.5}, "top_project": "Ensure", "top_share": 38, "comment": null, "band": "healthy"}, {"name": "Ankush Sabharwal", "short": "Ankush Sabharwal", "tagged_hours": 55.25, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 65.0, "untagged_hours": 12.75, "n_projects": 5, "projects": {"CoinDCX Social": 8.5, "Duolingo": 8.5, "Good Day": 25.5, "Google": 8.5, "Gpay": 4.25}, "top_project": "Good Day", "top_share": 46, "comment": null, "band": "healthy"}, {"name": "Anupam Arakkal", "short": "Anupam Arakkal", "tagged_hours": 51.0, "official_pct": 60.0, "official_hours": 51.0, "tagged_pct": 60.0, "untagged_hours": 0.0, "n_projects": 2, "projects": {"Google Search AI x IPL": 25.5, "The Hindu": 25.5}, "top_project": "Google Search AI x IPL", "top_share": 50, "comment": null, "band": "light"}, {"name": "Arantxa Salome Aquino", "short": "Arantxa Aquino", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": null, "band": "none"}, {"name": "Athharv Nageshkar", "short": "Athharv Nageshkar", "tagged_hours": 80.75, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 95.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Case studies": 42.5, "Google Search AI x IPL": 4.25, "Pantaloons": 25.5, "Trubble": 8.5}, "top_project": "Case studies", "top_share": 53, "comment": null, "band": "healthy"}, {"name": "Balaji Padmanabhan", "short": "Balaji Padmanabhan", "tagged_hours": 90.95, "official_pct": 107.0, "official_hours": 90.95, "tagged_pct": 107.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Burman Sports": 85.0, "New Business Development": 1.7, "Rupeezy": 4.25}, "top_project": "Burman Sports", "top_share": 93, "comment": null, "band": "healthy"}, {"name": "Dimple Parmar", "short": "Dimple Parmar", "tagged_hours": 80.75, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 95.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Leeford": 8.5, "Milk Bikis": 12.75, "Pantaloons": 4.25, "T6D Internal Projects": 55.25}, "top_project": "T6D Internal Projects", "top_share": 68, "comment": null, "band": "healthy"}, {"name": "Doshi Manal", "short": "Doshi Manal", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 7, "projects": {"Duolingo": 4.25, "Forest Essentials": 17.0, "Good Day": 12.75, "Leeford": 4.25, "Red Rock": 8.5, "Rimzim": 8.5, "Vaseline": 12.75}, "top_project": "Forest Essentials", "top_share": 25, "comment": null, "band": "healthy"}, {"name": "Eesha Sharma", "short": "Eesha Sharma", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": "On leave during this fortnight.", "band": "none"}, {"name": "Eishika Dhar", "short": "Eishika Dhar", "tagged_hours": 25.5, "official_pct": 30.0, "official_hours": 25.5, "tagged_pct": 30.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Android": 8.5, "Rimzim": 8.5, "Schweppes": 8.5}, "top_project": "Android", "top_share": 33, "comment": "On her way out — hence the lighter workload.", "band": "light"}, {"name": "Esha Nikunj Agarwal", "short": "Esha Agarwal", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Horlicks Protein": 25.5, "Leeford": 25.5, "Pantaloons": 8.5, "Pizza Express": 25.5}, "top_project": "Horlicks Protein", "top_share": 30, "comment": null, "band": "healthy"}, {"name": "Hansika Punjabi", "short": "Hansika Punjabi", "tagged_hours": 80.75, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 95.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"CoinDCX Social": 29.75, "Razorpay": 46.75, "Red Rock": 4.25}, "top_project": "Razorpay", "top_share": 58, "comment": null, "band": "healthy"}, {"name": "Javaad Ahmed", "short": "Javaad Ahmed", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Google Search AI x IPL": 1.7, "Sprite": 6.8, "T6D": 42.5, "T6D Internal Projects": 17.0}, "top_project": "T6D", "top_share": 62, "comment": null, "band": "healthy"}, {"name": "Jayesh Joshi", "short": "Jayesh Joshi", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Hinge": 17.0, "Razorpay": 42.5, "T6D Internal Projects": 25.5}, "top_project": "Razorpay", "top_share": 50, "comment": null, "band": "healthy"}, {"name": "Juhi Mongia", "short": "Juhi Mongia", "tagged_hours": 91.8, "official_pct": 108.0, "official_hours": 91.8, "tagged_pct": 108.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Forest Essentials": 12.75, "Leeford": 2.55, "Pantaloons": 76.5}, "top_project": "Pantaloons", "top_share": 83, "comment": null, "band": "healthy"}, {"name": "K C Matthew", "short": "K C Matthew", "tagged_hours": 42.5, "official_pct": 50.0, "official_hours": 42.5, "tagged_pct": 50.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Cipla - Suhagra": 8.5, "Rimzim": 8.5, "Schweppes": 8.5, "Trubble": 17.0}, "top_project": "Trubble", "top_share": 40, "comment": null, "band": "light"}, {"name": "Karishma Changroth", "short": "Karishma Changroth", "tagged_hours": 72.25, "official_pct": 85.0, "official_hours": 72.25, "tagged_pct": 85.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Android": 42.5, "New Business Development": 12.75, "The Hindu": 8.5, "Zee5": 8.5}, "top_project": "Android", "top_share": 59, "comment": null, "band": "healthy"}, {"name": "Karthik Nambiar", "short": "Karthik Nambiar", "tagged_hours": 63.75, "official_pct": 75.0, "official_hours": 63.75, "tagged_pct": 75.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Ensure Master Brand": 17.0, "Google Search AI x IPL": 17.0, "HUL": 12.75, "Razorpay": 17.0}, "top_project": "Ensure Master Brand", "top_share": 27, "comment": null, "band": "healthy"}, {"name": "Krisha Dhiraj Kakad", "short": "Krisha Kakad", "tagged_hours": 46.75, "official_pct": 55.0, "official_hours": 46.75, "tagged_pct": 55.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Google Pixel": 4.25, "Gpay": 21.25, "New Business Development": 4.25, "Zee5": 17.0}, "top_project": "Gpay", "top_share": 45, "comment": "Availed a few comp-offs during this fortnight.", "band": "light"}, {"name": "Leena Gupta", "short": "Leena Gupta", "tagged_hours": 68.0, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 80.0, "untagged_hours": 12.75, "n_projects": 6, "projects": {"Duolingo": 12.75, "Flipkart": 12.75, "Forest Essentials": 12.75, "Google Gemini": 12.75, "Leeford": 4.25, "Pizza Express": 12.75}, "top_project": "Duolingo", "top_share": 19, "comment": null, "band": "healthy"}, {"name": "Madhur Budhiraja", "short": "Madhur Budhiraja", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": "Name added before joining as part of backend trials.", "band": "none"}, {"name": "Malvika Thirani", "short": "Malvika Thirani", "tagged_hours": 72.25, "official_pct": 118.0, "official_hours": 100.3, "tagged_pct": 85.0, "untagged_hours": 28.05, "n_projects": 5, "projects": {"HUL": 12.75, "Nestasia": 17.0, "Pantaloons": 17.0, "Philips": 17.0, "Supermoney": 8.5}, "top_project": "Nestasia", "top_share": 24, "comment": null, "band": "over"}, {"name": "Nabil Mansur Kureshi", "short": "Nabil Kureshi", "tagged_hours": 72.25, "official_pct": 85.0, "official_hours": 72.25, "tagged_pct": 85.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Android": 4.25, "Burman Sports": 34.0, "Ensure Master Brand": 8.5, "Razorpay": 25.5}, "top_project": "Burman Sports", "top_share": 47, "comment": null, "band": "healthy"}, {"name": "Nasreen Amin Talukdar", "short": "Nasreen Talukdar", "tagged_hours": 59.5, "official_pct": 70.0, "official_hours": 59.5, "tagged_pct": 70.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Google Gemini": 8.5, "Google Search AI x IPL": 25.5, "The Hindu": 25.5}, "top_project": "Google Search AI x IPL", "top_share": 43, "comment": null, "band": "healthy"}, {"name": "Navyata Bansal", "short": "Navyata Bansal", "tagged_hours": 51.0, "official_pct": 75.0, "official_hours": 63.75, "tagged_pct": 60.0, "untagged_hours": 12.75, "n_projects": 3, "projects": {"Hinge": 29.75, "The Hindu": 8.5, "Vaseline": 12.75}, "top_project": "Hinge", "top_share": 58, "comment": null, "band": "healthy"}, {"name": "Neil Mathew", "short": "Neil Mathew", "tagged_hours": 72.25, "official_pct": 85.0, "official_hours": 72.25, "tagged_pct": 85.0, "untagged_hours": 0.0, "n_projects": 2, "projects": {"Android": 29.75, "Burman Sports": 42.5}, "top_project": "Burman Sports", "top_share": 59, "comment": null, "band": "healthy"}, {"name": "Nikhil Unni", "short": "Nikhil Unni", "tagged_hours": 55.25, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 65.0, "untagged_hours": 21.25, "n_projects": 4, "projects": {"Cashfree": 8.5, "Horlicks Protein": 21.25, "Supermoney": 4.25, "Ugaoo": 21.25}, "top_project": "Horlicks Protein", "top_share": 38, "comment": null, "band": "healthy"}, {"name": "Pearl Alex", "short": "Pearl Alex", "tagged_hours": 46.75, "official_pct": 55.0, "official_hours": 46.75, "tagged_pct": 55.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Duolingo": 8.5, "Fortinet": 8.5, "Razorpay": 25.5, "Uber": 4.25}, "top_project": "Razorpay", "top_share": 55, "comment": "On leave till 20th April.", "band": "light"}, {"name": "Piyush Panda", "short": "Piyush Panda", "tagged_hours": 59.5, "official_pct": 70.0, "official_hours": 59.5, "tagged_pct": 70.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Android": 8.5, "Hinge": 8.5, "Pizza Express": 34.0, "Schweppes": 8.5}, "top_project": "Pizza Express", "top_share": 57, "comment": null, "band": "healthy"}, {"name": "Pranav Jagadeshan", "short": "Pranav Jagadeshan", "tagged_hours": 42.5, "official_pct": 70.0, "official_hours": 59.5, "tagged_pct": 50.0, "untagged_hours": 17.0, "n_projects": 2, "projects": {"Horlicks Protein": 8.5, "Milk Bikis": 34.0}, "top_project": "Milk Bikis", "top_share": 80, "comment": null, "band": "healthy"}, {"name": "Rashi Modi", "short": "Rashi Modi", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": "Name added before joining as part of backend trials.", "band": "none"}, {"name": "Reya Reji", "short": "Reya Reji", "tagged_hours": 71.4, "official_pct": 84.0, "official_hours": 71.4, "tagged_pct": 84.0, "untagged_hours": 0.0, "n_projects": 5, "projects": {"Android": 34.0, "Cashfree": 3.4, "Horlicks Protein": 10.2, "Pantaloons": 6.8, "Ugaoo": 17.0}, "top_project": "Android", "top_share": 48, "comment": null, "band": "healthy"}, {"name": "Ria Maheshwari", "short": "Ria Maheshwari", "tagged_hours": 72.25, "official_pct": 85.0, "official_hours": 72.25, "tagged_pct": 85.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Duolingo": 17.0, "Myntra": 4.25, "Uber": 51.0}, "top_project": "Uber", "top_share": 71, "comment": null, "band": "healthy"}, {"name": "Ria Sharma", "short": "Ria Sharma", "tagged_hours": 56.1, "official_pct": 71.0, "official_hours": 60.35, "tagged_pct": 66.0, "untagged_hours": 4.25, "n_projects": 5, "projects": {"Britannia Corp": 17.0, "Case studies": 4.25, "Horlicks Protein": 25.5, "Milk Bikis": 4.25, "Vaseline": 5.1}, "top_project": "Horlicks Protein", "top_share": 45, "comment": null, "band": "healthy"}, {"name": "Riddhima", "short": "Riddhima", "tagged_hours": 42.5, "official_pct": 50.0, "official_hours": 42.5, "tagged_pct": 50.0, "untagged_hours": 0.0, "n_projects": 1, "projects": {"T6D Internal Projects": 42.5}, "top_project": "T6D Internal Projects", "top_share": 100, "comment": "Shadowing work & processes in the production team — hence low %.", "band": "light"}, {"name": "Ritam Mukherjee", "short": "Ritam Mukherjee", "tagged_hours": 80.75, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 95.0, "untagged_hours": 0.0, "n_projects": 8, "projects": {"Android": 8.5, "Burman Sports": 4.25, "Case studies": 12.75, "CoinDCX Social": 17.0, "Fortinet": 8.5, "Gpay": 4.25, "Pantaloons": 8.5, "Uber": 17.0}, "top_project": "CoinDCX Social", "top_share": 21, "comment": null, "band": "healthy"}, {"name": "Ritika Shriram", "short": "Ritika Shriram", "tagged_hours": 34.85, "official_pct": 59.0, "official_hours": 50.15, "tagged_pct": 41.0, "untagged_hours": 15.3, "n_projects": 3, "projects": {"Case studies": 12.75, "Flipkart": 6.8, "Scapia": 15.3}, "top_project": "Scapia", "top_share": 44, "comment": null, "band": "light"}, {"name": "Samyukkta Madaboosi Murali", "short": "Samyukkta Murali", "tagged_hours": 46.75, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 55.0, "untagged_hours": 29.75, "n_projects": 4, "projects": {"Bhartiya Jalpan": 4.25, "Case studies": 29.75, "Forest Essentials": 8.5, "Trubble": 4.25}, "top_project": "Case studies", "top_share": 64, "comment": null, "band": "healthy"}, {"name": "Sanket Subhash Audhi", "short": "Sanket Audhi", "tagged_hours": 74.8, "official_pct": 128.0, "official_hours": 108.8, "tagged_pct": 88.0, "untagged_hours": 34.0, "n_projects": 8, "projects": {"Cipla - Suhagra": 1.7, "Duolingo": 12.75, "Flipkart": 1.7, "Good Day": 4.25, "Myntra": 24.65, "Rupeezy": 8.5, "Schweppes": 4.25, "T6D Internal Projects": 17.0}, "top_project": "Myntra", "top_share": 33, "comment": null, "band": "over"}, {"name": "Saugat Suri", "short": "Saugat Suri", "tagged_hours": 51.0, "official_pct": 60.0, "official_hours": 51.0, "tagged_pct": 60.0, "untagged_hours": 0.0, "n_projects": 2, "projects": {"Rimzim": 25.5, "Schweppes": 25.5}, "top_project": "Rimzim", "top_share": 50, "comment": null, "band": "light"}, {"name": "Shania Savio Pereira", "short": "Shania Pereira", "tagged_hours": 97.75, "official_pct": 115.0, "official_hours": 97.75, "tagged_pct": 115.0, "untagged_hours": 0.0, "n_projects": 4, "projects": {"Duolingo": 4.25, "Forest Essentials": 42.5, "Nestasia": 8.5, "Pantaloons": 42.5}, "top_project": "Forest Essentials", "top_share": 43, "comment": null, "band": "over"}, {"name": "Shruti Deepak Patkar", "short": "Shruti Patkar", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 9, "projects": {"Britannia Social": 8.5, "Ensure Master Brand": 8.5, "Horlicks Protein": 4.25, "HUL": 4.25, "Philips": 4.25, "Ponds": 8.5, "Razorpay": 4.25, "Red Rock": 4.25, "Scapia": 21.25}, "top_project": "Scapia", "top_share": 31, "comment": null, "band": "healthy"}, {"name": "Shubhagya Gupta", "short": "Shubhagya Gupta", "tagged_hours": 72.25, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 85.0, "untagged_hours": 8.5, "n_projects": 3, "projects": {"Horlicks Protein": 4.25, "Philips": 34.0, "The Hindu": 34.0}, "top_project": "Philips", "top_share": 47, "comment": null, "band": "healthy"}, {"name": "Siddhant Ghosh", "short": "Siddhant Ghosh", "tagged_hours": 76.5, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 90.0, "untagged_hours": 4.25, "n_projects": 8, "projects": {"Android": 12.75, "CoinDCX Social": 17.0, "Good Day": 8.5, "Gpay": 8.5, "Hinge": 8.5, "Pantaloons": 4.25, "Red Rock": 8.5, "Uber": 8.5}, "top_project": "CoinDCX Social", "top_share": 22, "comment": null, "band": "healthy"}, {"name": "Sonaali Malhotra", "short": "Sonaali Malhotra", "tagged_hours": 51.0, "official_pct": 60.0, "official_hours": 51.0, "tagged_pct": 60.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Philips": 25.5, "Red Rock": 8.5, "Scapia": 17.0}, "top_project": "Philips", "top_share": 50, "comment": null, "band": "light"}, {"name": "Spandan Nitin Mahajan", "short": "Spandan Mahajan", "tagged_hours": 72.25, "official_pct": 95.0, "official_hours": 80.75, "tagged_pct": 85.0, "untagged_hours": 8.5, "n_projects": 3, "projects": {"Hinge": 17.0, "Pantaloons": 38.25, "Red Rock": 17.0}, "top_project": "Pantaloons", "top_share": 53, "comment": null, "band": "healthy"}, {"name": "Sudhanshu Sudhakar Tupe", "short": "Sudhanshu Tupe", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Google Pixel": 8.5, "Gpay": 51.0, "Zee5": 8.5}, "top_project": "Gpay", "top_share": 75, "comment": null, "band": "healthy"}, {"name": "Suramya Pathak", "short": "Suramya Pathak", "tagged_hours": 89.25, "official_pct": 105.0, "official_hours": 89.25, "tagged_pct": 105.0, "untagged_hours": 0.0, "n_projects": 5, "projects": {"Case studies": 17.0, "Duolingo": 4.25, "Forest Essentials": 29.75, "Milk Bikis": 25.5, "Nestasia": 12.75}, "top_project": "Forest Essentials", "top_share": 33, "comment": null, "band": "healthy"}, {"name": "Tanima Kohli", "short": "Tanima Kohli", "tagged_hours": 68.0, "official_pct": 80.0, "official_hours": 68.0, "tagged_pct": 80.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"Flipkart": 12.75, "Forest Essentials": 34.0, "Google Gemini": 21.25}, "top_project": "Forest Essentials", "top_share": 50, "comment": null, "band": "healthy"}, {"name": "Tanvi Vaid", "short": "Tanvi Vaid", "tagged_hours": 51.0, "official_pct": 60.0, "official_hours": 51.0, "tagged_pct": 60.0, "untagged_hours": 0.0, "n_projects": 1, "projects": {"Ensure Master Brand": 51.0}, "top_project": "Ensure Master Brand", "top_share": 100, "comment": null, "band": "light"}, {"name": "Teresa Sebastian", "short": "Teresa Sebastian", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": "Fully on leave during this fortnight.", "band": "none"}, {"name": "Tinisha Dhankhar", "short": "Tinisha Dhankhar", "tagged_hours": 21.25, "official_pct": 25.0, "official_hours": 21.25, "tagged_pct": 25.0, "untagged_hours": 0.0, "n_projects": 2, "projects": {"Android": 8.5, "Pizza Express": 12.75}, "top_project": "Pizza Express", "top_share": 60, "comment": "On her way out — hence the lighter workload.", "band": "light"}, {"name": "Udit Joshi", "short": "Udit Joshi", "tagged_hours": 72.25, "official_pct": 105.0, "official_hours": 89.25, "tagged_pct": 85.0, "untagged_hours": 17.0, "n_projects": 5, "projects": {"Case studies": 8.5, "Duolingo": 12.75, "Hinge": 21.25, "The Hindu": 17.0, "Vaseline": 12.75}, "top_project": "Hinge", "top_share": 29, "comment": null, "band": "healthy"}, {"name": "Vaibhav Arunkumar Pachisia", "short": "Vaibhav Pachisia", "tagged_hours": 46.75, "official_pct": 90.0, "official_hours": 76.5, "tagged_pct": 55.0, "untagged_hours": 29.75, "n_projects": 5, "projects": {"Britannia Corp": 8.5, "Google Search AI x IPL": 4.25, "Myntra": 21.25, "Schweppes": 4.25, "The Hindu": 8.5}, "top_project": "Myntra", "top_share": 45, "comment": null, "band": "healthy"}, {"name": "Vishwatej Sudhir Patil", "short": "Vishwatej Patil", "tagged_hours": 0.0, "official_pct": 0, "official_hours": 0.0, "tagged_pct": 0.0, "untagged_hours": 0.0, "n_projects": 0, "projects": {}, "top_project": null, "top_share": 0, "comment": "On leave during this fortnight.", "band": "none"}, {"name": "Walston D'souza", "short": "Walston D'souza", "tagged_hours": 63.75, "official_pct": 85.0, "official_hours": 72.25, "tagged_pct": 75.0, "untagged_hours": 8.5, "n_projects": 3, "projects": {"Britannia Corp": 4.25, "Case studies": 51.0, "Google Pixel": 8.5}, "top_project": "Case studies", "top_share": 80, "comment": null, "band": "healthy"}, {"name": "Yash Surendra Dugar", "short": "Yash Dugar", "tagged_hours": 85.0, "official_pct": 100.0, "official_hours": 85.0, "tagged_pct": 100.0, "untagged_hours": 0.0, "n_projects": 3, "projects": {"HUL": 17.0, "Razorpay": 59.5, "Ugaoo": 8.5}, "top_project": "Razorpay", "top_share": 70, "comment": null, "band": "healthy"}], "proj_tot": {"Android": 157.25, "Bhartiya Jalpan": 80.75, "Britannia Corp": 38.25, "Britannia Social": 8.5, "Burman Sports": 238.0, "Case studies": 216.75, "Cashfree": 11.9, "Cipla - Suhagra": 10.2, "CoinDCX Social": 72.25, "Duolingo": 110.5, "Ensure": 34.0, "Ensure Master Brand": 127.5, "Flipkart": 59.5, "Forest Essentials": 157.25, "Fortinet": 29.75, "Good Day": 80.75, "Google": 8.5, "Google Gemini": 55.25, "Google Pixel": 21.25, "Google Search AI x IPL": 78.2, "Gpay": 102.0, "Hinge": 221.0, "Horlicks Protein": 99.45, "HUL": 55.25, "Leeford": 100.3, "Milk Bikis": 76.5, "Myntra": 71.4, "Nestasia": 102.0, "New Business Development": 18.7, "Pantaloons": 249.05, "Philips": 114.75, "Pizza Express": 85.0, "Ponds": 8.5, "Razorpay": 306.0, "Red Rock": 114.75, "Rimzim": 55.25, "Rupeezy": 55.25, "Scapia": 53.55, "Schweppes": 89.25, "Sprite": 6.8, "Supermoney": 12.75, "T6D": 42.5, "T6D Internal Projects": 170.0, "The Hindu": 195.5, "Trubble": 29.75, "Uber": 114.75, "Ugaoo": 59.5, "Vaseline": 60.35, "Zee5": 55.25}, "proj_people": {"Android": 9, "Bhartiya Jalpan": 6, "Britannia Corp": 4, "Britannia Social": 1, "Burman Sports": 6, "Case studies": 11, "Cashfree": 2, "Cipla - Suhagra": 2, "CoinDCX Social": 4, "Duolingo": 10, "Ensure": 1, "Ensure Master Brand": 6, "Flipkart": 5, "Forest Essentials": 7, "Fortinet": 4, "Good Day": 6, "Google": 1, "Google Gemini": 4, "Google Pixel": 3, "Google Search AI x IPL": 6, "Gpay": 6, "Hinge": 10, "Horlicks Protein": 7, "HUL": 5, "Leeford": 7, "Milk Bikis": 4, "Myntra": 5, "Nestasia": 5, "New Business Development": 3, "Pantaloons": 12, "Philips": 5, "Pizza Express": 4, "Ponds": 1, "Razorpay": 9, "Red Rock": 9, "Rimzim": 5, "Rupeezy": 4, "Scapia": 3, "Schweppes": 9, "Sprite": 1, "Supermoney": 2, "T6D": 1, "T6D Internal Projects": 7, "The Hindu": 12, "Trubble": 3, "Uber": 6, "Ugaoo": 4, "Vaseline": 5, "Zee5": 4}, "light_flags": ["Anupam Arakkal", "K C Matthew", "Ritika Shriram", "Saugat Suri", "Sonaali Malhotra", "Tanvi Vaid"], "spd": ["Riddhima", "Tanvi Vaid"]};
+const S = D.summary, ROWS = D.rows;
+const BC = {over:'var(--over)',healthy:'var(--healthy)',light:'var(--light)',none:'var(--none)'};
+const BLABEL={over:'Overloaded',healthy:'Healthy',light:'Light',none:'No load'};
+const fmt=n=>Math.round(n).toLocaleString();
+const f1=n=>(Math.round(n*10)/10);
+
+/* KPIs */
+animateNum('k-head',S.headcount); document.getElementById('k-active').textContent='— '+S.active+' active this fortnight';
+animateNum('k-proj',S.n_projects);
+document.getElementById('k-util').textContent=S.avg_util+'%';
+animateNum('k-over',S.n_over);
+document.getElementById('k-room').textContent=fmt(S.capacity_left)+'h';
+document.getElementById('k-untag').textContent=S.untag_pct+'%';
+
+function animateNum(id,target){const el=document.getElementById(id);let c=0;const step=Math.max(1,Math.ceil(target/28));
+  const t=setInterval(()=>{c+=step;if(c>=target){c=target;clearInterval(t)}el.textContent=c},22)}
+
+/* BANDS */
+const bands=[['over',S.n_over],['healthy',S.n_healthy],['light',S.n_light],['none',S.n_none]];
+const maxB=Math.max(...bands.map(b=>b[1]));
+const bw=document.getElementById('bands');
+bands.forEach(([k,v],i)=>{
+  const r=document.createElement('div');r.className='bandrow';
+  r.innerHTML=`<div class="bl">${BLABEL[k]}</div><div class="bar"><i style="background:${BC[k]}"></i></div><div class="bn">${v}</div>`;
+  bw.appendChild(r);
+  setTimeout(()=>r.querySelector('i').style.width=(v/maxB*100)+'%',200+i*120);
+});
+
+/* DONUT: share of hours carried by top 16 (top quartile of 64 active) */
+(()=>{
+  const act=ROWS.filter(r=>r.official_pct>0).sort((a,b)=>b.official_hours-a.official_hours);
+  const tot=act.reduce((s,r)=>s+r.official_hours,0);
+  const top=act.slice(0,16).reduce((s,r)=>s+r.official_hours,0);
+  const share=Math.round(top/tot*100);
+  document.getElementById('topq').textContent=share+'%';
+  const svg=document.getElementById('donut');const r=78,c=2*Math.PI*r,off=c*(1-share/100);
+  svg.innerHTML=`<circle cx="100" cy="100" r="${r}" fill="none" stroke="var(--paper2)" stroke-width="26"/>
+  <circle cx="100" cy="100" r="${r}" fill="none" stroke="var(--accent)" stroke-width="26"
+    stroke-dasharray="${c}" stroke-dashoffset="${c}" transform="rotate(-90 100 100)" stroke-linecap="butt">
+    <animate attributeName="stroke-dashoffset" from="${c}" to="${off}" dur="1.2s" fill="freeze" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1"/></circle>
+  <text x="100" y="94" text-anchor="middle" font-family="var(--serif)" font-weight="800" font-size="40" fill="var(--ink)">${share}%</text>
+  <text x="100" y="118" text-anchor="middle" font-family="var(--mono)" font-size="10" letter-spacing="1" fill="var(--mut)">TOP 16 PEOPLE</text>`;
+})();
+
+/* HISTOGRAM */
+(()=>{
+  const buckets=[['0',0,1],['1–50',1,50],['50–70',50,70],['70–90',70,90],['90–110',90,110],['110+',110,999]];
+  const counts=buckets.map(()=>0);
+  ROWS.forEach(r=>{const p=r.official_pct;
+    for(let i=0;i<buckets.length;i++){const[,lo,hi]=buckets[i];
+      if(i===0){if(p<=0)counts[0]++;break}
+      if(p>buckets[i][1]-(i===1?1:0)&&p<=hi){counts[i]++;break}}
+  });
+  // simpler exact bucketing
+  counts.fill(0);
+  ROWS.forEach(r=>{const p=r.official_pct;
+    if(p<=0)counts[0]++;else if(p<50)counts[1]++;else if(p<70)counts[2]++;
+    else if(p<90)counts[3]++;else if(p<=110)counts[4]++;else counts[5]++;});
+  const mx=Math.max(...counts);
+  const cls=['none','light','light','healthy','healthy','over'];
+  const h=document.getElementById('histo'),ax=document.getElementById('haxis');
+  buckets.forEach((b,i)=>{
+    const bar=document.createElement('div');bar.className='hbar '+cls[i];
+    bar.innerHTML=`<div class="hv">${counts[i]}</div>`;h.appendChild(bar);
+    setTimeout(()=>bar.style.height=(counts[i]/mx*100)+'%',400+i*90);
+    const a=document.createElement('div');a.textContent=b[0]+(i===0?'':'%');ax.appendChild(a);
+  });
+})();
+
+/* ATTENTION CHIPS */
+function chips(containerId,list,red){
+  const el=document.getElementById(containerId);
+  list.forEach(r=>{const c=document.createElement('span');c.className='chip'+(red?' red':'');
+    c.innerHTML=`${r.short} <b>${Math.round(r.official_pct)}%</b>`;el.appendChild(c);});
+}
+const over=ROWS.filter(r=>r.band==='over').sort((a,b)=>b.official_pct-a.official_pct);
+const lightFlag=ROWS.filter(r=>D.light_flags.includes(r.name)).sort((a,b)=>a.official_pct-b.official_pct);
+const spd=ROWS.filter(r=>D.spd.includes(r.name));
+document.getElementById('a-over').textContent=over.length;
+document.getElementById('a-light').textContent=lightFlag.length;
+document.getElementById('a-spd').textContent=spd.length;
+chips('overchips',over,true);chips('lightchips',lightFlag,false);chips('spdchips',spd,false);
+
+/* ROSTER TABLE */
+let sortKey='official_pct',sortDir=-1,filter='all',q='';
+const tbody=document.getElementById('tbody');
+function render(){
+  let rows=ROWS.slice();
+  if(filter==='noted')rows=rows.filter(r=>r.comment);
+  else if(filter!=='all')rows=rows.filter(r=>r.band===filter);
+  if(q)rows=rows.filter(r=>r.name.toLowerCase().includes(q));
+  rows.sort((a,b)=>{let x=a[sortKey],y=b[sortKey];
+    if(typeof x==='string')return sortDir*x.localeCompare(y);return sortDir*((x||0)-(y||0));});
+  tbody.innerHTML='';
+  rows.forEach((r,i)=>{
+    const col=BC[r.band];
+    const tr=document.createElement('tr');tr.className='expand';
+    const badge=`<span class="badge" style="color:${r.band==='healthy'?'var(--ink)':col};border-color:${col}">${BLABEL[r.band]}</span>`;
+    const noteCell=r.comment?`<span class="cmt">${r.comment}</span>`
+      :(D.light_flags.includes(r.name)?`<span class="flagmark">room — check in</span>`:'');
+    tr.innerHTML=`<td><div class="nm"><span class="pin" style="background:${col}"></span>${r.name}</div></td>
+      <td class="num"><div class="util"><span class="minib"><i style="width:${Math.min(100,r.official_pct)}%;background:${col}"></i></span>
+        <span class="putil">${r.official_pct?Math.round(r.official_pct)+'%':'—'}</span></div></td>
+      <td class="num">${r.official_hours?f1(r.official_hours):'—'}</td>
+      <td class="num">${r.n_projects||'—'}</td>
+      <td>${badge}</td><td>${noteCell}</td>`;
+    tbody.appendChild(tr);
+    const dr=document.createElement('tr');dr.className='drawer';
+    const inner=document.createElement('div');inner.className='drawer-inner';
+    if(r.n_projects>0){
+      const ps=Object.entries(r.projects).sort((a,b)=>b[1]-a[1]);
+      inner.innerHTML=`<div class="dlabel">Project mix · ${r.short} · top project: ${r.top_project} (${r.top_share}% of their tagged time)</div>`
+        +ps.map(([n,h])=>`<span class="pj">${n} <b>${f1(h)}h</b></span>`).join('');
+    }else{inner.innerHTML=`<div class="dlabel">No project hours logged this fortnight.</div>`;}
+    const td=document.createElement('td');td.colSpan=6;td.appendChild(inner);dr.appendChild(td);tbody.appendChild(dr);
+    tr.onclick=()=>inner.classList.toggle('show');
+  });
+}
+document.querySelectorAll('.tbl thead th[data-s]').forEach(th=>{
+  th.onclick=()=>{const k=th.dataset.s;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='name')?1:-1;}render();};
+});
+document.querySelectorAll('.fbtn').forEach(b=>{b.onclick=()=>{
+  document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  filter=b.dataset.f;render();};});
+document.getElementById('search').oninput=e=>{q=e.target.value.toLowerCase().trim();render();};
+render();
+
+/* PROJECTS */
+const projs=Object.entries(D.proj_tot).map(([n,h])=>({n,h,p:D.proj_people[n]})).sort((a,b)=>b.h-a.h);
+const pmax=projs[0].h;const plist=document.getElementById('plist');let showAll=false;
+function renderP(){
+  plist.innerHTML='';
+  (showAll?projs:projs.slice(0,12)).forEach((p,i)=>{
+    const row=document.createElement('div');row.className='prow';
+    row.innerHTML=`<div class="rank">${String(i+1).padStart(2,'0')}</div>
+      <div class="pn">${p.n}<span class="pbar"><i style="width:${p.h/pmax*100}%"></i></span></div>
+      <div style="text-align:right"><div class="pmeta"><b>${f1(p.h)}h</b></div><div class="ppl">${p.p} ${p.p===1?'person':'people'}</div></div>`;
+    plist.appendChild(row);
+  });
+}
+renderP();
+document.getElementById('morep').onclick=function(){showAll=!showAll;renderP();
+  this.textContent=showAll?'Show top 12 only ↑':'Show all 49 projects ↓';};
+
+/* DATA QUALITY */
+document.getElementById('dq-tagged').textContent=fmt(S.grand_tagged)+'h';
+document.getElementById('dq-pct').textContent=(100-S.untag_pct).toFixed(1)+'%';
+document.getElementById('dq-untag').textContent=f1(S.grand_untagged)+'h';
+document.getElementById('dq-untag2').textContent=f1(S.grand_untagged)+' hours';
+setTimeout(()=>document.getElementById('dqbar').style.width=(100-S.untag_pct)+'%',300);
+
+/* REVEAL */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
